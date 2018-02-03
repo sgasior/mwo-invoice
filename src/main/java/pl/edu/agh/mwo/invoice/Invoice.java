@@ -9,13 +9,13 @@ import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
 	private Collection<Product> products;
-	private BigDecimal subTotal;
+	private BigDecimal netValue;
 	private BigDecimal total;
 	private BigDecimal tax;
 
 	// konstruktor
 	Invoice() {
-		subTotal = new BigDecimal("0");
+		netValue = new BigDecimal("0");
 		total = new BigDecimal("0");
 		tax = new BigDecimal("0");
 		products = new ArrayList<Product>();
@@ -37,19 +37,19 @@ public class Invoice {
 		update();
 	}
 
-	public void setSubtotal() {
-		subTotal = BigDecimal.ZERO;
+	public void setNetValue() {
+		netValue = BigDecimal.ZERO;
 		for (Product product : products) {
-			subTotal = subTotal.add(product.getPrice());
+			netValue = netValue.add(product.getPrice());
 		}
 	}
 
-	public BigDecimal getSubtotal() {
-		return subTotal;
+	public BigDecimal getNetValue() {
+		return netValue;
 	}
 
 	public void setTax() {
-		tax = total.subtract(subTotal);
+		tax = total.subtract(netValue);
 	}
 
 	public BigDecimal getTax() {
@@ -72,7 +72,7 @@ public class Invoice {
 	}
 
 	public void update() {
-		setSubtotal();
+		setNetValue();
 		setTotal();
 		setTax();
 	}

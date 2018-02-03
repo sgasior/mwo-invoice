@@ -21,6 +21,7 @@ public abstract class Product {
 		if (price.signum() == -1 || tax.signum() == -1) {
 			throw new IllegalArgumentException();
 		}
+		
 
 	}
 

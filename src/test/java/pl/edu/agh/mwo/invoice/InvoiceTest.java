@@ -22,6 +22,29 @@ public class InvoiceTest {
 	}
 
 	@Test
+	public void testInvoiceHasNumberGreaterThan0() {
+		int number = invoice.getNumber();
+		Assert.assertThat(number, Matchers.greaterThan(0));
+	}
+
+	@Test
+	public void testTwoInvoicesHaveDifferentNumber() {
+		Assert.assertNotEquals(invoice.getNumber(), new Invoice().getNumber());
+	}
+
+	@Test
+	public void testTheSameInvoiceHaveTheSameNumber() {
+		Assert.assertThat(invoice.getNumber(), Matchers.comparesEqualTo(invoice.getNumber()));
+
+	}
+
+	@Test
+	public void testInvoicesHaveAscendingNumber() {
+		int difference = 1;
+		Assert.assertEquals(difference, new Invoice().getNumber() - invoice.getNumber());
+	}
+
+	@Test
 	public void testEmptyInvoiceHasEmptySubtotal() {
 		Assert.assertThat(BigDecimal.ZERO, Matchers.comparesEqualTo(invoice.getNetTotal()));
 	}

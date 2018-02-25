@@ -7,19 +7,18 @@ import java.util.Map;
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
-	public static int counter =1;
+	public static int counter = 1;
 	private final int number;
 	private Map<Product, Integer> products = new HashMap<Product, Integer>();
 
 	public void addProduct(Product product) {
 		addProduct(product, 1);
 	}
-	
-	public Invoice(){
-		number=counter;
+
+	public Invoice() {
+		number = counter;
 		counter++;
 	}
-
 
 	public void addProduct(Product product, Integer quantity) {
 		if (product == null || quantity <= 0) {
@@ -53,4 +52,23 @@ public class Invoice {
 	public int getNumber() {
 		return number;
 	}
+
+	public String preparePrint() {
+		String printed = String.valueOf(number);
+
+		for (Product product : products.keySet()) {
+			printed += "\n";
+			printed += product.getName();
+			printed += " " + products.get(product);
+		}
+
+		return printed;
+	}
+
+	/*
+	 * public String preparePrint() { String printed = String.valueOf(number);
+	 * 
+	 * printed += products.keySet().stream() return printed; }
+	 */
+
 }

@@ -22,6 +22,7 @@ public class InvoiceTest {
 	}
 
 	@Test
+
 	public void testInvoiceHasNumberGreaterThan0() {
 		int number = invoice.getNumber();
 		Assert.assertThat(number, Matchers.greaterThan(0));
@@ -36,6 +37,35 @@ public class InvoiceTest {
 	public void testTheSameInvoiceHaveTheSameNumber() {
 		Assert.assertThat(invoice.getNumber(), Matchers.comparesEqualTo(invoice.getNumber()));
 
+	}
+
+	@Test
+	public void testNumberAvailableOnPrint() {
+
+		String printed = invoice.preparePrint();
+		String number = String.valueOf(invoice.getNumber());
+		Assert.assertThat(printed, Matchers.containsString(number));
+
+	}
+
+	@Test
+	public void testPrintContainsProductName() {
+		invoice.addProduct(new OtherProduct("Oscypek", new BigDecimal("5")));
+		String printed = invoice.preparePrint(); // przenoszenie lini 1) kurson
+													// na linie i ctrl alt 2)
+													// puszczamy ctl i strzalka
+													// w dol przenosimy
+		Assert.assertThat(printed, Matchers.containsString("\nOscypek"));
+	}
+
+	@Test
+	public void testPrintContains3xProductName() {
+		invoice.addProduct(new OtherProduct("Oscypek", new BigDecimal("5")), 3);
+		String printed = invoice.preparePrint(); // przenoszenie lini 1) kurson
+													// na linie i ctrl alt 2)
+													// puszczamy ctl i strzalka
+													// w dol przenosimy
+		Assert.assertThat(printed, Matchers.containsString("\nOscypek"));
 	}
 
 	@Test
